@@ -1,0 +1,304 @@
+@import "../bower_components/materialize/sass/materialize.scss";
+$background-body: #eee!default;
+$background-barHerramientas: #01579b!default;
+$color-barHerramientas: #fff!default;
+
+@mixin box-shadow-1 {
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.16),0 1px 1px 0 rgba(0,0,0,0.12);
+    -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.16),0 1px 1px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.16),0 1px 1px 0 rgba(0,0,0,0.12);
+}
+
+@mixin box-shadow-2 {
+    -webkit-box-shadow: 0 5px 10px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    -moz-box-shadow: 0 5px 10px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+@mixin transition-custon($time) {
+    -webkit-transition: all $time ease;
+  	-moz-transition: all $time ease;
+  	-ms-transition: all $time ease;
+  	-o-transition: all $time ease;
+  	transition: all $time ease;
+}
+
+body {
+	background-color: $background-body;
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.contenido  {
+     background: $background-body;
+     display: block;
+     overflow: auto;
+     overflow-x: hidden;
+     height: calc(100% - 128px);
+ }
+
+.panel {
+	background-color: #fff;
+	@include box-shadow-1;
+	padding: 15px;
+	margin: 0;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+.floatRight {
+  float: right!important;
+}
+
+.hidden {
+  display: none;
+}
+
+.capa {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  top: 0;
+}
+
+.controlDelete {
+    color:red;
+    cursor: pointer;
+    visibility: hidden;
+    @include transition-custon(50ms);
+}
+
+table.dataTable tbody tr:hover {
+    background-color: rgba(0,0,0,.1);
+}
+
+table.dataTable tbody tr:hover .controlDelete {
+    visibility: visible;
+}
+
+.toastInfo {
+	background: #03a9f4; border-radius: 0;width: 300px;
+}
+.toastWarning {
+	background: #ff9800; border-radius: 0;width: 300px;
+}
+.toastDanger {
+	background: #f44336; border-radius: 0;width: 300px;
+}
+.toastSuccess {
+	background: #4CAF50; border-radius: 0;width: 300px;
+}
+
+.progress {
+  margin: 0;
+  position: fixed;
+  z-index: 2000;
+  background-color: #03a9f4;
+  .indeterminate {
+  	background-color: #01579b!important;
+	}
+}
+
+.loginCard {
+  position: fixed;
+  background-color: #fff;
+  @include box-shadow-2;
+  z-index: 998;
+  width: 45%;
+  top: -500px;
+  left: calc(100% - 48%);
+  padding: 10px;
+  padding-bottom: 0;
+  visibility: hidden;
+  max-height: 550px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  @include transition-custon(500ms);
+  @media screen and (max-width: 992px) {
+	  visibility: hidden;
+	  top: -500px;
+	  display: none;
+	}
+  &.mostrarCardLogin {
+	  width: 45%;
+	  top:64px;
+	  visibility: visible;
+
+	}
+  .imgPerfil {
+	  position: relative;
+	  border-radius: 50%;
+	  border: 1px solid #dedede;
+	  height: 200px;
+	  width: 200px;
+	  box-shadow: 1px 1px 4px #dedede;
+	  overflow: hidden;
+	  @media screen and (max-width: 992px) {
+	  	height: 100px;
+    	width: 100px;
+	  }
+	  &i {
+		  font-size: 200px;
+		  color: #dedede;
+		  @media screen and (max-width: 992px) {
+		  	font-size: 100px;
+		  }
+		}
+	}
+	.footerLoginCard {
+		margin-bottom: 0;
+		div a {
+	  		top: 15px;
+	  		float: right;
+		}
+		div.z > a {
+			float: left;
+			padding-top:20px;
+			cursor: pointer;
+		}
+	}
+	.btnChangePass {
+	  display: block;
+	  padding-top: 30px;
+	}
+}
+
+.cortina {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.5);
+  z-index: 996;
+  &.mostrarBlock {
+  	display: block;
+  	@include transition-custon(500ms);
+  }
+}
+
+.barHerramientas {
+  display: block;
+  background-color: $background-barHerramientas;
+  position: relative;
+  width: 100%;
+  z-index: 997;
+  top: 0;
+  height: 66px;
+  @include box-shadow-2;
+  	span {
+	  color: $color-barHerramientas;
+	  font-size: 30px;
+	}
+	ul {
+	  margin: 0;
+	  border-right: 1px solid $color-barHerramientas;
+	  display: inline-table;
+	  padding-right: 20px;
+	  margin-right: 20px;
+		li {
+		  display: inline-table;
+		  padding: 15px;
+		  cursor: pointer;
+		  color: $color-barHerramientas;
+		  border-top: 2px solid transparent;
+		  border-bottom: 2px solid transparent;
+		  &:hover, &:active {
+			  border-top: 2px solid $color-barHerramientas;
+			  border-bottom: 2px solid $color-barHerramientas;
+			  @include transition-custon(500ms);
+			}
+		}
+	}
+	ul.ulRight {
+		position: absolute;
+		right: 0;
+		margin: 0;
+		padding: 0;
+		border:none;
+		li {
+			div.nClienteLogin {
+				display: inline-block;
+				position: relative;
+				right: -5px;
+				top: -5px;
+			}
+		}
+	}
+}
+
+.side-nav {
+	background-color: $background-body;
+	ul {
+		background-color: $background-body;
+	}
+	.headerSidebar {
+		background: #03a9f4;
+	  	margin: 0;
+	  	h3 {
+	  		margin:0;
+	  		color: #fff;
+  			padding: 8px;
+	  	}
+	}
+	.btnSidebarTitle {
+		&.active , &:hover {
+			background-color: #01579b!important;
+  			color: #fff;
+		}
+	}
+	.btnSidebar {
+		&.active , &:hover {
+			background-color: #03a9f4!important;
+  			color: #fff;
+		}
+	}
+}
+
+form.form {
+	background: #fff;
+	padding: 15px;
+	margin-bottom: 20px;
+	@include box-shadow-1;
+	button {
+		@extend .btn;
+	}
+}
+
+ng-map {
+	@include box-shadow-1;
+}
+table {
+	td.perfilDoc, th.perfilDoc {
+		text-align: left!important;
+	}
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: white !important;
+
+    background: $primary-color;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.3em 0.8em;
+    cursor: pointer;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    /*transition: all 0.4s ease;*/
+    padding: 0.3em 0.8em;
+    background: $primary-color;
+    color: white !important;
+}

@@ -1,0 +1,140 @@
+<br>
+<div class="panel" ng-show="!localStorage.cliente.x && localStorage.usuario.x">
+	<h4>Seleccione un cliente</h4>
+</div>
+<div ng-show="localStorage.usuario.x && localStorage.cliente.x">
+	<div class="row">
+		<div class="panel" ng-show="resumen">
+			<h4>Resumen</h4>
+			<a class="btn-floating waves-effect waves-light" href="#/">
+				<i class="material-icons">dashboard</i>
+			</a>
+		</div>
+		<form class="form col s12 m10 l6 offset-m1 offset-l3" ng-show="!resumen">
+			<h5>¿Quien es el paciente?</h5>
+			<div class="row">
+				<p>
+					<input class="with-gap" name="paciente" ng-model="paciente.name" type="radio" id="test5"  value="yo" checked />
+					<label for="test5">Yo</label>
+					<input class="with-gap" name="paciente" ng-model="paciente.name"  type="radio" id="test6" value="otra"  />
+					<label for="test6">Otra persona</label>
+				</p>
+				<div class="input-field col s10 l11" ng-show="paciente.name != 'yo'">
+					<select>
+						<option value="" disabled selected>Seleccione el paciente</option>
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+					<label>Paciente</label>
+				</div>
+				<div class="col s2 l1" ng-show="paciente.name != 'yo'">
+					<a class="btn-floating waves-effect waves-light tooltipped" style="top:25px;" ng-click="fnRpaciente()" data-position="left"  data-tooltip="Agregar paciente">
+						<i class="material-icons">add</i>
+					</a>
+				</div>
+				<div class="input-field col s10 l11">
+					<select>
+						<option value="" disabled selected>Seleccione razón</option>
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+					<label>Razón de la visita</label>
+				</div>
+				<div class="col s10 l11">
+					<label>Seguro medico</label>
+					<div>seguros la occidental </div>
+				</div>
+				<div class="input-field col s10 l11">
+					<select>
+						<option value="" disabled selected>Seleccione colectivo</option>
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+					<label>Colectivo</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 m6 l4 offset-m6 offset-l8">
+					<a class="btn waves-effect" ng-click="resumenBtn()">Confirmar</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div ng-show="!localStorage.usuario.x" class="container">
+	<form ng-show="!localStorage.usuario.x" class="form">
+		<div class="row">
+			<div class="col s12 m6 offset-m3">
+				<h4>Iniciar sesión</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12 m6 offset-m3">
+				<input id="userLogin" type="text" class="validate" ng-model="localStorage.usuario.user">
+				<label for="userLogin">Usuario</label>
+			</div>
+			<div class="input-field col s12 m6 offset-m3">
+				<input id="passLogin" type="password" class="validate" ng-model="localStorage.usuario.pass">
+				<label for="passLogin">password</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col m6 offset-m3">
+				<a class="btn waves-effect" ng-click="loginBtn('btn')">entrar</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- Modal Structure -->
+<div id="modalPaciente" class="modal modal-fixed-footer" style="width: 600px;max-height: 98%;height: 98%;">
+	<div class="modal-content">
+		<h4>Registro del paciente</h4>
+		<div class="row">
+			<div class="row">
+				<div class="input-field col s12 m5 l3">
+					<select>
+						<option value="" disabled selected>Cédula</option>
+						<option value="1">M</option>
+						<option value="2">V</option>
+						<option value="3">E</option>
+					</select>
+					<label>Tipo de cédula</label>
+				</div>
+				<div class="input-field col s12 m7 l9">
+					<input id="cPaciente" type="number" class="validate" ng-model="datosPaciente.cedula" length="8">
+					<label for="cPaciente">Cédula del paciente</label>
+				</div>
+			</div>
+			<div class="input-field col s12 m12 l12">
+				<input id="nPaciente" type="text" class="validate" ng-model="datosPaciente.nombre" length="50">
+				<label for="nPaciente">Nombre del paciente</label>
+			</div>
+			<div class="input-field col s12 m12 l12">
+				<input id="aPaciente" type="text" class="validate" ng-model="datosPaciente.apellido" length="50">
+				<label for="aPaciente">apellido del paciente</label>
+			</div>
+			<div class="input-field col s12 m12 l12">
+				<input id="fPaciente" type="date" class="datepicker" ng-model="datosPaciente.fechaNacimiento">
+				<label for="fPaciente">Fecha de nacimiento</label>
+			</div>
+			<p>
+				<input class="with-gap" name="sPaciente" ng-model="datosPaciente.sexo" type="radio" id="test51"  value="masculino" checked />
+				<label for="test51">Masculino</label>
+				<input class="with-gap" name="sPaciente" ng-model="datosPaciente.sexo"  type="radio" id="test61" value="femenino"  />
+				<label for="test61">Femenino</label>
+			</p>
+			<div class="input-field col s12 m12 l12">
+				<input id="aPaciente" type="email" ng-model="datosPaciente.email" length="100">
+				<label for="aPaciente">Email (opcional)</label>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="" class="modal-action modal-close waves-effect waves-green btn ">registrar</a>
+		<a href="" class="modal-action modal-close waves-effect waves-green btn-flat ">cerrar</a>
+	</div>
+</div>

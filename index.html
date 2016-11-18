@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Citas online</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/animatedcss/animate.css">
+	<!-- <link rel="stylesheet" href="css/estilos.css"> -->
+	<link rel="stylesheet" href="css/iconosMD/icono.css">
+	<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="http://maps.google.com/maps/api/js"></script>
+
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/ngstorage/ngStorage.min.js"></script>
+	<script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+
+	<link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.css">
+	<link rel="stylesheet" href="css/responsive.dataTables.min.css">
+
+	<script> var app = angular.module("appCitasOnline", ["ngRoute","ngMap","ngStorage","datatables","ngResource"]);</script>
+</head>
+<body ng-app="appCitasOnline">
+	<div id="modalSelectClient" class="modal" style="width: 350px">
+		<div class="modal-content">
+			<h5>Seleccionar cliente</h5>
+			<p>
+				<label>Clientes</label>
+				<input type="text" id="dataClienteN" name="" ng-model="localStorage.cliente.ci" length="8">
+			</p>
+		</div>
+		<div class="modal-footer">
+			<a href="" class=" modal-action modal-close waves-effect waves-green btn" ng-click="fnScliente()">Seleccionar</a>
+			<a href="" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="fnCerrarScliente()" ng-show="localStorage.cliente.ci != 'Cliente'">Cerrar sesión </a>
+		</div>
+	</div>
+	<ul id="slide-out" class="side-nav">
+		<li class="headerSidebar"><h3>Citas online</h3></li>
+		<li>
+			<ul class="collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header waves-effect btnSidebarTitle active">Modulo 1</div>
+					<div class="collapsible-body">
+						<ul>
+							<li><a href="#/" class="waves-effect btnSidebar">Inicio</a></li>
+							<li><a href="#/search" class="waves-effect btnSidebar" id="">Buscar</a></li>
+							<li ng-show="localStorage.usuario.x"><a href="#/clientes" class="waves-effect btnSidebar" id="">Clientes</a></li>
+							<li ng-show="localStorage.usuario.x"><a href="#reservar" class="waves-effect btnSidebar">Reservar cita</a></li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<div class="cortina"></div>
+	<div class="loginCard">
+		<div class="row" ng-show="localStorage.usuario.x">
+			<div class="col s12 m5 l6">
+				<div class="imgPerfil">
+					<i class="material-icons">perm_identity</i>
+				</div>
+			</div>
+			<div class="col s12 m7 l6">
+				<form name="datosPersonales">
+					<div class="input-field">
+						<i class="material-icons prefix">account_circle</i>
+						<input placeholder="Nombre" value="Alejandro josé" type="text" class="validate2">
+
+					</div>
+					<div class="input-field">
+						<i class="material-icons prefix">email</i>
+						<input placeholder="Correo" value="correo@correo.com" type="email" class="validate2">
+
+					</div>
+					<div class="input-field">
+						<i class="material-icons prefix">phone</i>
+						<input placeholder="Telefono" value="+544123456567" type="tel" class="validate2">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="divider" ng-show="localStorage.usuario.x"></div>
+		<div class="row" ng-show="localStorage.usuario.x">
+			<div class="col s12">
+				<form class="datosUser row">
+					<div class="input-field col s12 m4">
+						<input value="" type="text" class="validate2" ng-model="localStorage.usuario.user">
+					</div>
+					<div class="input-field col s12 m4 passChange hidden">
+						<input id="password" type="password" class="validate2">
+						<label for="password">Password</label>
+					</div>
+					<div class="input-field col s12 m4 passChange hidden">
+						<input id="password" type="password" class="validate2">
+						<label for="password">Confirmar Password</label>
+					</div>
+					<button class="btn waves-effect waves-light disabled floatRight passChange hidden" type="submit" name="action">Submit
+						<i class="material-icons right">send</i>
+					</button>
+					<a href="" class="btnChangePass">Cambiar contraseña</a>
+				</form>
+			</div>
+		</div>
+		<form ng-show="!crearCuenta && !localStorage.usuario.x">
+			<h4>Iniciar sesión</h4>
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="userLogin" type="text" class="validate" ng-model="localStorage.usuario.user">
+					<label for="userLogin">Usuario</label>
+				</div>
+				<div class="input-field col s12">
+					<input id="passLogin" type="password" class="validate" ng-model="localStorage.usuario.pass">
+					<label for="passLogin">Password</label>
+				</div>
+			</div>
+		</form>
+		<div ng-show="crearCuenta">
+			<h4>Crear cuenta</h4>
+			<form>
+				<div class="row">
+					<div class="row">
+						<div class="input-field col s12 m5 l3">
+							<select>
+								<option value="" disabled selected>Cédula</option>
+								<option value="1">M</option>
+								<option value="2">V</option>
+								<option value="3">E</option>
+							</select>
+							<label>Tipo de cédula</label>
+						</div>
+						<div class="input-field col s12 m7 l9">
+							<input id="cClinete" type="number" class="validate" ng-model="dataCliente.cedula" length="8">
+							<label for="cClinete">Cédula</label>
+						</div>
+					</div>
+					<div class="input-field col s12">
+						<input id="pCliente" type="password" class="validate" ng-model="dataCliente.pass">
+						<label for="pCliente">Password</label>
+					</div>
+					<div class="input-field col s12 m12 l12">
+						<input id="nCliente" type="text" class="validate" ng-model="dataCliente.nombre" length="50">
+						<label for="nCliente">Nombre</label>
+					</div>
+					<div class="input-field col s12 m12 l12">
+						<input id="nApellido" type="text" class="validate" ng-model="dataCliente.apellido" length="50">
+						<label for="nApellido">Apellido</label>
+					</div>
+					<div class="input-field col s12 m12 l12">
+						<input id="fCliente" type="date" class="datepicker" ng-model="dataCliente.fechaNacimiento">
+						<label for="fCliente">Fecha de nacimiento</label>
+					</div>
+					<p>
+						<input class="with-gap" name="sPaciente" ng-model="dataCliente.sexo" type="radio" id="cMaculino"  value="masculino" checked />
+						<label for="cMaculino">Masculino</label>
+						<input class="with-gap" name="sPaciente" ng-model="dataCliente.sexo"  type="radio" id="cFemenino" value="femenino"  />
+						<label for="cFemenino">Femenino</label>
+					</p>
+					<div class="input-field col s12 m12 l12">
+						<input id="cEmail" type="email" ng-model="dataCliente.email" length="100">
+						<label for="cEmail">Email</label>
+					</div>
+					<div class="row">
+						<div class="input-field col s12 m5 l3">
+							<select>
+								<option value="" disabled selected>Código</option>
+								<option value="1">0412</option>
+								<option value="2">0416</option>
+								<option value="3">0426</option>
+								<option value="4">0414</option>
+								<option value="5">0424</option>
+							</select>
+							<label>Tipo de celular</label>
+						</div>
+						<div class="input-field col s12 m7 l9">
+							<input id="cClinete" type="number" class="validate" ng-model="dataCliente.celular" length="8">
+							<label for="cClinete">Numero de celular</label>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="divider"></div>
+		<div class="row">
+			<div class="footerLoginCard">
+				<div class="z col s3 m8 l9">
+					<a ng-show="!crearCuenta && !localStorage.usuario.x" ng-click="btnCrearCuenta()">Crear una cuenta</a>
+					<a ng-show="crearCuenta && !localStorage.usuario.x"  ng-click="btnCancelar()">Cancelar</a>
+				</div>
+				<div class="col s9 m4 l5 offset-s3 offset-m8 offset-l7" ng-show="localStorage.usuario.x">
+					<a class="btn-flat waves-effect" ng-click="cerrarSession()">Cerrar session</a>
+				</div>
+				<div class="col s9 m4 l3 " ng-show="!crearCuenta && !localStorage.usuario.x">
+					<a class="btn waves-effect" ng-click="loginBtn();">entrar</a>
+				</div>
+				<div class="col s9 m4 l3 " ng-show="crearCuenta">
+					<a class="btn waves-effect" ng-click="">registrar</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="progress">
+		<div class="indeterminate"></div>
+	</div>
+	<div class="navbar-fixed">
+		<nav>
+			<div class="nav-wrapper">
+				<div class="containers">
+					<a href="#/" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+					<a href="#/" class="brand-logo">Citas online <small style="font-size: 12px;">{{localStorage}}</small></a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li>
+							<a ng-show="localStorage.usuario.x"  class="btnLogin"><i class="material-icons left">perm_identity</i>{{localStorage.usuario.user}} <small>+87687687876</small></a>
+							<a ng-show="!localStorage.usuario.x"  class="btnLogin" ng-click="cerrarLoginCard()"><i class="material-icons left">perm_identity</i>Login <small></small></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div class="barHerramientas">
+		<ul>
+			<!-- <li>        <i class="material-icons dropdown-button">view_module</i>      </li> -->
+			<li ng-show="btnBack" data-position="right"  data-tooltip="Regresar" class="tooltipped" ng-click="callBack()">
+				<i class="fa fa-chevron-left fa-2x" aria-hidden="true" ></i>
+			</li>
+			<li  data-position="right"  data-tooltip="Inicio" class="tooltipped" ng-click="fnHome('/')">
+				<i class="fa fa-home fa-2x" aria-hidden="true" ></i>
+			</li>
+		</ul>
+		<span>{{$titulo}}</span>
+		<ul class="ulRight">
+			<li class="btnCLienteLogin" ng-click="fnSelectClient()" ng-show="localStorage.usuario.x">
+				<i class="fa fa-id-badge fa-2x" aria-hidden="true" ></i>
+				<div class="nClienteLogin" id="nClienteLogin"> {{localStorage.cliente.ci}}</div>
+			</li>
+		</ul>
+	</div>
+	<div class="contenido" ng-view></div>
+	<div class="capa"></div>
+	<script src="js/google-map/ng-map.min.js"></script>
+	<script src="bower_components/materialize/dist/js/materialize.js"></script>
+	<script src="js/dataTables.responsive.min.js"></script>
+	<script src="js/appGlobal/appConfig.js"></script>
+	<script src="js/controladores/ctrHome.js"></script>
+	<script src="js/controladores/ctrSearch.js"></script>
+	<script src="js/controladores/ctrReservarCitas.js"></script>
+	<script src="js/controladores/ctrClientes.js"></script>
+	<script src="js/script.js"></script>
+</body>
+</html>
