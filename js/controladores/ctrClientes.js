@@ -49,8 +49,8 @@ function addPerson() {
 function modifyPerson(index) {
 	vm.persons.splice(index, 1, angular.copy(vm.person2Add));
 	Materialize.toast('Se modifico '+vm.person2Add.firstName , 4000 ,'toastSuccess');
-	vm.person2Add = _buildPerson2Add('','','');
 	$rootScope.fnModal('#modalFormTable','close','10%','10%');
+	vm.person2Add = _buildPerson2Add('','','');
 	vm.editarDatoTabla = false;
 }
 function removePerson(index) {

@@ -3,6 +3,7 @@
 /.tmp
 /.sass-cache
 /bower_components
+/sitio
 npm-debug.log
 .sass-cache
 # Windows
