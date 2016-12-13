@@ -11,8 +11,9 @@ $('.datepicker').pickadate({
 	selectMonths: true,
 	selectYears: 15
 });
+
 setTimeout(function(){
-	$('.progress').css('visibility','hidden');
+	//$('.progress').css('visibility','hidden');
 //$('select').addClass('browser-default');
 },4000);
 setTimeout(function(){
@@ -53,4 +54,13 @@ function openModalTable(){
 	}
 	);
 	$('#modalFormTable').modal('open');
+}
+fnProgress(0);
+function fnProgress(accion){
+	if (accion === 1) {
+		$('.progress').css('visibility','visible');
+	}
+	if (accion === 0) {
+		$('.progress').css('visibility','hidden');
+	}
 }

@@ -8,6 +8,7 @@ app.controller("home", function ($scope, $routeParams, $rootScope, $route) {
 	setTimeout(function(){
 		$('select').material_select();
 		$('.tooltipped').tooltip('remove');
+		fnProgress(0);
 	},300);
 
 });

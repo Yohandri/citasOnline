@@ -6437,6 +6437,9 @@ body {
   overflow: auto;
   overflow-x: hidden;
   height: calc(100% - 128px); }
+  @media screen and (max-width: 600px) {
+    .contenido {
+      height: calc(100% - 170px); } }
 
 .panel {
   background-color: #fff;
@@ -6510,6 +6513,22 @@ table.dataTable tbody tr:hover .controlDelete {
   .progress .indeterminate {
     background-color: #01579b !important; }
 
+#modalPaciente {
+  width: 50%;
+  max-height: 98%;
+  height: 98%; }
+  @media screen and (max-width: 600px) {
+    #modalPaciente {
+      width: 100%; } }
+  @media screen and (min-width: 600px) and (max-width: 992px) {
+    #modalPaciente {
+      width: 62%;
+      max-height: 62%;
+      height: 98%; } }
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100%; } }
 .loginCard {
   position: fixed;
   background-color: #fff;
@@ -6531,15 +6550,22 @@ table.dataTable tbody tr:hover .controlDelete {
   -ms-transition: all 500ms ease;
   -o-transition: all 500ms ease;
   transition: all 500ms ease; }
-  @media screen and (max-width: 992px) {
+  @media screen and (max-width: 600px) {
     .loginCard {
-      visibility: hidden;
-      top: -500px;
-      display: none; } }
+      top: -500px; } }
   .loginCard.mostrarCardLogin {
     width: 45%;
     top: 64px;
     visibility: visible; }
+    @media screen and (max-width: 600px) {
+      .loginCard.mostrarCardLogin {
+        top: 56px;
+        left: 0;
+        width: 100%; } }
+    @media screen and (min-width: 600px) and (max-width: 992px) {
+      .loginCard.mostrarCardLogin {
+        width: 60%;
+        left: calc(100% - 60%); } }
   .loginCard .imgPerfil {
     position: relative;
     border-radius: 50%;
@@ -6552,11 +6578,11 @@ table.dataTable tbody tr:hover .controlDelete {
       .loginCard .imgPerfil {
         height: 100px;
         width: 100px; } }
-    .loginCard .imgPerfili {
+    .loginCard .imgPerfil i {
       font-size: 200px;
       color: #dedede; }
       @media screen and (max-width: 992px) {
-        .loginCard .imgPerfili {
+        .loginCard .imgPerfil i {
           font-size: 100px; } }
   .loginCard .footerLoginCard {
     margin-bottom: 0; }

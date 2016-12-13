@@ -7,6 +7,7 @@ app.run(function($rootScope, $route, $location, $localStorage, $window, DTDefaul
 	$rootScope.btnBack = false;
 	$rootScope.crearCuenta = false;
 	$rootScope.dataSearch = {};
+	$rootScope.setting = {dominio: 'http://192.168.0.110:8080/'};
 
 	$rootScope.localStorage = $localStorage.$default({
 		cliente:{ci:'Cliente', x:false},usuario:{user: '', pass: '', x: false}
@@ -104,10 +105,11 @@ app.run(function($rootScope, $route, $location, $localStorage, $window, DTDefaul
 	setTimeout(function(){
 		$('select').material_select();
 	},100);
-	DTDefaultOptions.setLanguage({
-		sUrl: 'https://cdn.datatables.net/plug-ins/1.10.12/i18n/Spanish.json'
-	});
-	DTDefaultOptions.setDisplayLength(25);
+	 DTDefaultOptions.setLanguageSource('js/appGlobal/leng.json');
+	// DTDefaultOptions.setLanguage({
+	// 	sUrl: 'https://cdn.datatables.net/plug-ins/1.10.12/i18n/Spanish.json'
+	// });
+	//DTDefaultOptions.setDisplayLength(25);
 });
 app.config(function($routeProvider) {
 	$routeProvider
@@ -127,5 +129,9 @@ app.config(function($routeProvider) {
 	.when("/reservar", {
 		templateUrl : "templates/reservarCita.html",
 		controller: "reservarCitas"
+	})
+	.when("/ciudades/", {
+		templateUrl : "templates/ciudad.html",
+		controller: 'ciudades'
 	});
 });

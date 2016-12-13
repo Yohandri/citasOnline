@@ -33,4 +33,5 @@ app.controller("search", function ($scope, $routeParams, $rootScope, NgMap) {
 		var tr = obj.target.parentNode.parentNode.parentNode;
 		angular.element(tr).toggleClass('mostrar');
 	}
+	fnProgress(0);
 });

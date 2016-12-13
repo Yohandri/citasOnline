@@ -37,6 +37,9 @@ body {
      overflow: auto;
      overflow-x: hidden;
      height: calc(100% - 128px);
+     @media screen and (max-width: 600px) {
+	  	height: calc(100% - 170px);
+	 }
  }
 
 .panel {
@@ -109,6 +112,26 @@ table.dataTable tbody tr:hover .controlDelete {
 	}
 }
 
+#modalPaciente {
+	width:50%;
+	max-height: 98%;
+	height: 98%;
+	@media screen and (max-width: 600px) {
+	  width: 100%;
+	}
+	@media screen and (min-width: 600px) and (max-width: 992px){
+	  width: 62%;
+	  max-height: 62%;
+	  height: 98%;
+	}
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+  	width: 100%;
+  }
+}
+
 .loginCard {
   position: fixed;
   background-color: #fff;
@@ -124,16 +147,22 @@ table.dataTable tbody tr:hover .controlDelete {
   overflow-x: hidden;
   overflow-y: auto;
   @include transition-custon(500ms);
-  @media screen and (max-width: 992px) {
-	  visibility: hidden;
+  @media screen and (max-width: 600px) {
 	  top: -500px;
-	  display: none;
 	}
   &.mostrarCardLogin {
 	  width: 45%;
 	  top:64px;
 	  visibility: visible;
-
+		@media screen and (max-width: 600px) {
+		  top: 56px;
+		  left: 0;
+		  width: 100%;
+		}
+		@media screen and (min-width: 600px) and (max-width: 992px){
+		  width: 60%;
+		  left: calc(100% - 60%);
+		}
 	}
   .imgPerfil {
 	  position: relative;
@@ -147,7 +176,7 @@ table.dataTable tbody tr:hover .controlDelete {
 	  	height: 100px;
     	width: 100px;
 	  }
-	  &i {
+	  i {
 		  font-size: 200px;
 		  color: #dedede;
 		  @media screen and (max-width: 992px) {

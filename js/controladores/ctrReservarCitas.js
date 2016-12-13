@@ -16,4 +16,5 @@ app.controller("reservarCitas", function ($scope, $routeParams, $rootScope) {
 	$scope.fnRpaciente = function(){
 		$rootScope.fnModal('#modalPaciente', 'open','1%','1%');
 	}
+	fnProgress(0);
 });
