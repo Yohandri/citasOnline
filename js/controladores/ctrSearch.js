@@ -4,6 +4,7 @@ app.controller("search", function ($scope, $routeParams, $rootScope, NgMap) {
 	$scope.$data  = 'data search';
 	$scope.busqueda = $routeParams.q;
 	$scope.center = [10.0739, -69.3228];
+	$rootScope.dataBuscarCita();
 	NgMap.getMap().then(function(map) {
 
 	});

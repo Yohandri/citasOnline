@@ -1,13 +1,14 @@
 		<!-- <form name="buscarCita" class="form" method="GET" action="/#/search"> -->
 		<form name="buscarCita" class="form">
-		<h4>EMPIEZA AQUÍ</h4><span style="font-size: 12px;">{{dataSearch}}</span>
+		<h4>EMPIEZA AQUÍ</h4><span style="font-size: 12px;">{{dataSearch}}-</span>
 			<div class="row">
 				<div class="input-field- col s12">
 				<label>Tipo de servicio</label>
 					<select ng-model="dataSearch.tipoServicio" class="tipoServicio" name="tipoServicio" id="tipoServicio" ng-change="change($event)">
 						<option value="" disabled>Seleccione</option>
-						<option value="Consulta medica">Consulta medica</option>
-						<option value="Estudio">Estudio</option>
+						<option value="{{i.Nombre}}" ng-repeat="i in $selectTipoServicio">{{i.Nombre}}</option>
+						<!-- <option value="Consulta medica">Consulta medica</option>
+						<option value="Estudio">Estudio</option> -->
 					</select>
 				</div>
 				<div class="input-field- col s12">
@@ -23,20 +24,22 @@
 				<label>Ciudad</label>
 					<select ng-model="dataSearch.ciudad" class="ciudad">
 						<option value="" disabled selected>Seleccione</option>
-						<option value="Cabudare">Cabudare</option>
+						<option value="{{i.Ciudad}} {{i.Zona}}" ng-repeat="i in $selectZonaCiudad">{{i.Ciudad}} {{i.Zona}}</option>
+						<!-- <option value="Cabudare">Cabudare</option>
 						<option value="Barquisimeto">Barquisimeto</option>
 						<option value="San felipe">San felipe</option>
 						<option value="Acarigua">Acarigua</option>
-						<option value="Valera">Valera</option>
+						<option value="Valera">Valera</option> -->
 					</select>
 				</div>
 				<div class="input-field- col s12">
 				<label>Seguro</label>
 					<select ng-model="dataSearch.seguro" class="seguro">
 						<option value="" disabled selected>Seleccione</option>
-						<option value="1">Option 1</option>
+						<option value="{{i.Nombre}}" ng-repeat="i in $selectSeguro">{{i.Nombre}}</option>
+						<!-- <option value="1">Option 1</option>
 						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
+						<option value="3">Option 3</option> -->
 					</select>
 				</div>
 			</div>

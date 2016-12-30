@@ -1,8 +1,7 @@
 $(document).ready(function(){
 
 //$('select').addClass('browser-default');
-Materialize.toast('Bienvenidos!', 4000 ,'toastInfo');
-
+fnMsj('Bienvenidos!','toastInfo',4000);
 $('.capa').css('display','none');
 
 $(".button-collapse").sideNav();
@@ -41,8 +40,11 @@ $('.btnSidebar').click(function(e){
 	$('.button-collapse').sideNav('hide');
 });
 function openModalTable(){
+	$('select').material_select();
+	$('.modal,.modal-content').animate({scrollTop: 0}, 'slow');
+	$('*').removeClass('classInputFail');
 	$('.modal').modal({
-		dismissible: true, 
+		dismissible: false, 
 		opacity: .5, 
 		in_duration: 300, 
 		out_duration: 200, 
@@ -59,8 +61,29 @@ fnProgress(0);
 function fnProgress(accion){
 	if (accion === 1) {
 		$('.progress').css('visibility','visible');
+		$('.capa').css('display','block');
+		$('body').css('cursor','wait');
+		$('a').css('cursor','wait');
+		$('a').attr('disabled','disabled');
 	}
 	if (accion === 0) {
 		$('.progress').css('visibility','hidden');
+		$('.capa').css('display','none');
+		$('body').css('cursor','default');
+		$('a').css('cursor','pointer');
+		$('a').removeAttr('disabled');
 	}
 }
+function fnMsj(msj,tipo,time){
+	if (time === undefined) {
+		time = 4000;
+	}
+	if (tipo === undefined) {
+		tipo = 'toastInfo';
+	}
+	if (msj === undefined) {
+		msj = 'toast';
+	}
+	Materialize.toast(msj , time ,tipo);
+}
+

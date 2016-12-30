@@ -1,0 +1,63 @@
+<br>
+<div class="container">
+<div ng-show="localStorage.usuario.x" class="row">
+	<div class="col s12 m12 l12">
+	<div ng-controller="dataTableTB as item" class="controlTabla">
+		<a style="position: absolute;right: 25px;top: 90%;" class="btn-floating btn-large waves-effect waves-light tooltipped z-depth-5"   onclick="openModalTable()" data-position="left" data-delay="50" data-tooltip="Agregar nuevo"><i class="material-icons">add</i></a>
+		<a ng-show="item.selectedViews" ng-click="item.arrayDelete(item.selected)" style="position: absolute;right: 100px;top: 90%;" class="btn-floating btn-large waves-effect waves-light tooltipped z-depth-5" data-position="left" data-delay="50" data-tooltip="Eliminar seleccion"><i class="material-icons">remove</i></a>
+	<div id="modalFormTable" class="modal" ng-class="{'modal-fixed-footer':item.campos.length > 4}">
+	    <div class="modal-content">
+	      <h4>{{item.tituloModal}}</h4>
+	      <div class="row">
+	      <div ng-repeat="i in item.campos">
+	      	<div class="col s12" ng-if="i.tipo === undefined">
+	      		<label for="for{{$index}}id">{{i.tituloInput}}</label>
+	      		<input id="for{{$index}}id" type="text" class="form-control" name="{{i.col}}" ng-model="item.person2Add[i.col]" value="">
+	      	</div>
+
+	      			      		<div class="col s12" ng-if="i.tipo === 'select'">
+					      			<label for="for{{$index}}id">{{i.tituloInput}}</label>
+					      			<select name="" id="for{{$index}}id" ng-model="item.person2Add[i.col]" class="browser-defaulte">
+					      				<option value="" disabled>seleccione</option>
+					      				<option value="{{j.Nombre}}" ng-repeat="j in i.option">{{j.Nombre}}</option>
+					      				<!-- <option value="7">7</option>
+					      				<option value="9">9</option> -->
+					      			</select>
+	      						</div>
+	      </div>
+	      </div>
+	      
+	    </div>
+	    <div class="modal-footer"> 
+	      <button ng-show="item.editarDatoTabla" type="button" class="btn" ng-click="item.modifyPerson(item.indexX)"><i class="fa fa-edit"></i> Guardar</button>
+	      <button ng-show="!item.editarDatoTabla" type="submit" class="btn" ng-click="item.addPerson()"><i class="fa fa-plus"></i> Nuevo</button>
+	      <a href="" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="item.cerrarModal();">Cerrar</a>
+	    </div>
+	</div>
+		<table datatable="ng" dt-options="item.dtOptions" dt-column-defs="item.dtColumnDefs" dt-instance="item.dtInstance">
+		    <thead>
+		    <tr>
+		    	<th></th>
+		    	<th>Selección</th>
+		    	<th>Id</th>
+		        <th ng-repeat="i in item.campos">{{i.col}}</th>
+
+		    </tr>
+		    </thead>
+		    <tbody>
+		    <tr ng-repeat="i in item.datos" class="tabTr{{$index}}">
+		    	<td>{{$index}}</td>
+		    	<td>
+				      <input type="checkbox" id="test{{i.Id}}" name="selecciones" ng-change="item.stateChanged(i.Id,$index)" ng-model="item.selected[i.Id]" ng-click="item.toggleOne(item.selected,$index);item.fnSeleccionViews(this,$index)"/>
+				      <label for="test{{i.Id}}"></label>
+		    	</td>
+		    	<td>{{ i.Id }}</td>
+	            <td ng-repeat="j in item.campos" class="c">{{ i[j.col] }} </td>
+	        </tr>
+		    </tbody>
+
+		</table>
+	</div>
+	</div>
+</div>
+<div ng-include="'templates/_login.html'" scope="" onload="b=false"></div>

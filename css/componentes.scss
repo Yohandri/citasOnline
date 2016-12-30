@@ -72,6 +72,7 @@ body {
   height: 100%;
   background-color: #fff;
   top: 0;
+  z-index: 2;
 }
 
 .controlDelete {
@@ -90,16 +91,72 @@ table.dataTable tbody tr:hover .controlDelete {
 }
 
 .toastInfo {
-	background: #03a9f4; border-radius: 0;width: 300px;
+	background: #03a9f4; border-radius: 0;width: 350px;
 }
 .toastWarning {
-	background: #ff9800; border-radius: 0;width: 300px;
+	background: #ff9800; border-radius: 0;width: 350px;
 }
 .toastDanger {
-	background: #f44336; border-radius: 0;width: 300px;
+	background: #f44336; border-radius: 0;width: 350px;
 }
 .toastSuccess {
-	background: #4CAF50; border-radius: 0;width: 300px;
+	background: #4CAF50; border-radius: 0;width: 350px;
+}
+
+.dataTables_wrapper > div {
+	display: inline-block;
+}
+.dataTables_filter {
+	float: right;
+	margin: 0;
+	height: 41px;
+}
+@media screen and (max-width: 600px) {
+	.dataTables_filter {
+		height: 39px!important;
+		width: 100%;
+	}
+	.modal {
+		width: 100%!important;
+	}
+}
+.dataTables_filter label input {
+	height: 1rem;
+	border:none;
+	border-radius: 0!important;
+	border-bottom: 1px solid #e4e4e4;
+	border-top: none!important;
+	border-left: none!important;
+	border-right: none!important;
+}
+.dataTables_wrapper table tbody tr td {
+	padding: 0 5px;
+}
+.seleccion {
+	background-color: rgba(0,0,0,.1);
+}
+.dataTables_wrapper table tbody tr {
+	@include transition-custon(600ms);
+}
+.accionSuccess {
+	background-color: $primary-color!important;
+	color: #fff;
+	@include transition-custon(600ms);
+}
+.classInputFail > input, input.classInputFail {
+	border-color: red!important;
+}
+.collapsible {
+	background-color: $background-barHerramientas!important;
+	color: $color-barHerramientas!important;
+}
+.dropdown-content {
+	max-height: 350px!important;
+}
+.controlTabla {
+	background: #fff;
+	padding: 5px;
+	box-shadow: 1px 1px 4px #777;
 }
 
 .progress {

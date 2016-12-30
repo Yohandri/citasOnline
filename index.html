@@ -22,54 +22,13 @@
 	
 	
 	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-md5/angular-md5.js"></script>
 	<script src="bower_components/angular-resource/angular-resource.min.js"></script>
 	<script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
 	<script src="bower_components/angular-datatables/dist/plugins/columnfilter/angular-datatables.columnfilter.min.js"></script>
 
 	<link rel="stylesheet" href="bower_components/angular-datatables/dist/css/angular-datatables.css">
 	<link rel="stylesheet" href="css/responsive.dataTables.min.css">
-
-	<style>
-		.dataTables_wrapper > div {
-			display: inline-block;
-		}
-		.dataTables_filter {
-			float: right;
-			margin: 0;
-			height: 41px;
-		}
-		.dataTables_filter label input {
-			height: 1rem;
-			border:none;
-			border-radius: 0!important;
-			border-bottom: 1px solid #e4e4e4;
-			border-top: none!important;
-			border-left: none!important;
-			border-right: none!important;
-		}
-		.dataTables_wrapper table tbody tr td {
-			padding: 5px 5px;
-		}
-		.seleccion {
-			background-color: rgba(0,0,0,.1);
-		}
-		.dataTables_wrapper table tbody tr {
-			-webkit-transition: all 600ms ease;
-			-moz-transition: all 600ms ease;
-			-ms-transition: all 600ms ease;
-			-o-transition: all 600ms ease;
-			transition: all 600ms ease;
-		}
-		.accionSuccess {
-			background-color: #03a9f4!important;
-			color: #fff;
-			-webkit-transition: all 600ms ease;
-			-moz-transition: all 600ms ease;
-			-ms-transition: all 600ms ease;
-			-o-transition: all 600ms ease;
-			transition: all 600ms ease;
-		}
-	</style>
 </head>
 <body ng-app="appCitasOnline">
 	<div id="modalSelectClient" class="modal" style="width: 350px">
@@ -90,14 +49,34 @@
 		<li>
 			<ul class="collapsible" data-collapsible="accordion">
 				<li>
-					<div class="collapsible-header waves-effect btnSidebarTitle active">Modulo 1</div>
+					<div class="collapsible-header waves-effect btnSidebarTitle">Publico</div>
 					<div class="collapsible-body">
 						<ul>
 							<li><a href="#/" class="waves-effect btnSidebar">Inicio</a></li>
 							<li><a href="#/search" class="waves-effect btnSidebar" id="">Buscar</a></li>
-							<li ng-show="localStorage.usuario.x"><a href="#/clientes/" class="waves-effect btnSidebar" id="">Clientes</a></li>
-							<li ng-show="localStorage.usuario.x"><a href="#/ciudades/" class="waves-effect btnSidebar" id="">Ciudades</a></li>
 							<li ng-show="localStorage.usuario.x"><a href="#reservar" class="waves-effect btnSidebar">Reservar cita</a></li>
+						</ul>
+					</div>
+				</li>
+				<li ng-show="localStorage.usuario.x">
+					<div class="collapsible-header waves-effect btnSidebarTitle">Tablas primarias</div>
+					<div class="collapsible-body">
+						<ul>
+							<!-- <li ng-show="localStorage.usuario.x"><a href="#/clientes/" class="waves-effect btnSidebar" id="">Clientes</a></li> -->
+							<li ng-show="localStorage.usuario.x"><a href="#/ciudades/tbZC{{localStorage.usuario.token}}Lista" class="waves-effect btnSidebar" id="">Ciudades</a></li>
+							<li ng-show="localStorage.usuario.x"><a href="#/tipoServicio/tbTS{{localStorage.usuario.token}}Lista" class="waves-effect btnSidebar" id="">Tipos de servicios</a></li>
+							<li ng-show="localStorage.usuario.x"><a href="#/seguro/tbS{{localStorage.usuario.token}}Lista" class="waves-effect btnSidebar" id="">Seguros</a></li>
+							<li ng-show="localStorage.usuario.x"><a href="#/sucursal/tbSU{{localStorage.usuario.token}}Lista" class="waves-effect btnSidebar" id="">Sucursal</a></li>
+							<li ng-show="localStorage.usuario.x"><a href="#/tipousuario/tbTU{{localStorage.usuario.token}}Lista" class="waves-effect btnSidebar" id="">Tipo de usuario</a></li>
+						</ul>
+					</div>
+				</li>
+				<li ng-show="localStorage.usuario.x">
+					<div class="collapsible-header waves-effect btnSidebarTitle">Tablas secundarias</div>
+					<div class="collapsible-body">
+						<ul>
+							<li ng-show="localStorage.usuario.x"><a href="#/servicio/tbSE{{localStorage.usuario.token}}Lista" class="waves-effect btnSidebar" id="">Servicio</a></li>
+							<li ng-show="localStorage.usuario.x"><a href="#/usuario/tbUS{{localStorage.usuario.token}}Lista" class="waves-effect btnSidebar" id="">Usuario</a></li>
 						</ul>
 					</div>
 				</li>
@@ -116,17 +95,17 @@
 				<form name="datosPersonales">
 					<div class="input-field">
 						<i class="material-icons prefix">account_circle</i>
-						<input placeholder="Nombre" value="Alejandro josé" type="text" class="validate2">
+						<input placeholder="Nombre" ng-model="localStorage.usuario.Nombre" type="text" class="validate2">
 
 					</div>
 					<div class="input-field">
 						<i class="material-icons prefix">email</i>
-						<input placeholder="Correo" value="correo@correo.com" type="email" class="validate2">
+						<input placeholder="Correo" ng-model="localStorage.usuario.Email" type="email" class="validate2">
 
 					</div>
 					<div class="input-field">
 						<i class="material-icons prefix">phone</i>
-						<input placeholder="Telefono" value="+544123456567" type="tel" class="validate2">
+						<input placeholder="Telefono" ng-model="localStorage.usuario.Telefono" type="tel" class="validate2">
 					</div>
 				</form>
 			</div>
@@ -136,7 +115,7 @@
 			<div class="col s12">
 				<form class="datosUser row">
 					<div class="input-field col s12 m4">
-						<input value="" type="text" class="validate2" ng-model="localStorage.usuario.user">
+						<input value="" type="text" class="validate2" ng-model="localStorage.usuario.Usuario">
 					</div>
 					<div class="input-field col s12 m4 passChange hidden">
 						<input id="password" type="password" class="validate2">
@@ -153,19 +132,7 @@
 				</form>
 			</div>
 		</div>
-		<form ng-show="!crearCuenta && !localStorage.usuario.x">
-			<h4>Iniciar sesión</h4>
-			<div class="row">
-				<div class="input-field col s12">
-					<input id="userLogin" type="text" class="validate" ng-model="localStorage.usuario.user">
-					<label for="userLogin">Usuario</label>
-				</div>
-				<div class="input-field col s12">
-					<input id="passLogin" type="password" class="validate" ng-model="localStorage.usuario.pass">
-					<label for="passLogin">Password</label>
-				</div>
-			</div>
-		</form>
+		<div ng-include="'templates/_login.html'" scope="" onload="b=true"></div>
 		<div ng-show="crearCuenta">
 			<h4>Crear cuenta</h4>
 			<form>
@@ -255,14 +222,16 @@
 		<div class="indeterminate"></div>
 	</div>
 	<div class="navbar-fixed">
+	<small style="font-size: 12px; display: block;width: 15px;height: 15px;background-color: green;position: fixed;z-index: 3000;top: 120px;" ng-show="online"></small>
+	<small style="font-size: 12px; display: block;width: 15px;height: 15px;background-color: red;position: fixed;z-index: 3000;top: 120px;" ng-show="!online"></small>
 		<nav>
 			<div class="nav-wrapper">
 				<div class="containers">
 					<a href="#/" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-					<a href="#/" class="brand-logo"><span class="hide-on-small-only">Citas online </span> <small style="font-size: 12px;display: none;">{{localStorage}}</small></a>
+					<a href="#/" class="brand-logo"><span class="hide-on-small-only">Citas online </span> </a>
 					<ul id="nav-mobile" class="right">
 						<li>
-							<a ng-show="localStorage.usuario.x"  class="btnLogin"><i class="material-icons left">perm_identity</i>{{localStorage.usuario.user}} <small>+87687687876</small></a>
+							<a ng-show="localStorage.usuario.x"  class="btnLogin"><i class="material-icons left">perm_identity</i>{{localStorage.usuario.Usuario}} <small>{{localStorage.usuario.Telefono}}</small></a>
 							<a ng-show="!localStorage.usuario.x"  class="btnLogin" ng-click="cerrarLoginCard()"><i class="material-icons left">perm_identity</i>Login <small></small></a>
 						</li>
 					</ul>
@@ -297,11 +266,20 @@
 	<script src="js/dataTables.responsive.min.js"></script>
 
 	<script src="js/appGlobal/appConfig.js"></script>
+
 	<script src="js/controladores/ctrHome.js"></script>
 	<script src="js/controladores/ctrSearch.js"></script>
 	<script src="js/controladores/ctrReservarCitas.js"></script>
 	<script src="js/controladores/ctrClientes.js"></script>
+
 	<script src="js/controladores/ctrCiudad.js"></script>
+	<script src="js/controladores/ctrTipoServicio.js"></script>
+	<script src="js/controladores/ctrSeguro.js"></script>
+	<script src="js/controladores/ctrSucursal.js"></script>
+	<script src="js/controladores/ctrTipoUsuario.js"></script>
+
+	<script src="js/controladores/ctrServicio.js"></script>
+	<script src="js/controladores/ctrUsuario.js"></script>
 	<script src="js/script.js"></script>
 </body>
 </html>
